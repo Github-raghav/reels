@@ -44,16 +44,6 @@ function PrivateRoute(props){ // privateroute m comp m feed milta jisme kuch com
   );
 }
 
-// function PrivateRoute(props) {
-//   let { comp: Component, path } = props;
-//   // Feeds ?? loggedIn and path="/"
-//   let { currentUser } = useContext(AuthContext);
-//   // let currentUser = true;
-//   return currentUser ? (
-//     <Route path={path} component={Component}></Route>
-//   ) : (
-//     <Redirect to="/login"></Redirect>
-//   );
-// }
+
 
 export default App;

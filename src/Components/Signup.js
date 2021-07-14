@@ -1,7 +1,11 @@
 import React,{useContext, useState} from 'react'
-import { Button } from '@material-ui/core';
+import { Button,CardActions,makeStyles ,Container,Typography, Card,CardMedia,CardContent,TextField} from '@material-ui/core';
 import { AuthContext } from '../context/AuthProvider';
 import { firebaseDb, firebaseStorage } from '../config/firebase';
+import "./Signup.css";
+import logo from "../logo.png";
+import { CloudUpload } from '@material-ui/icons';
+import InputLabel from '@material-ui/core/InputBase';
 
 const Signup=(props)=> {
     const [email,setEmail]=useState("");
@@ -49,6 +53,7 @@ let profileImageUrl=await uploadPhotoObject.snapshot.ref.getDownloadURL();
  userId:uid,
  username:username,
  profileImageUrl:profileImageUrl,
+ postsCreated:[],
  })}
 
  props.history.push("/feed");
@@ -60,35 +65,90 @@ let profileImageUrl=await uploadPhotoObject.snapshot.ref.getDownloadURL();
 
     return (
         <div className="signup">
-             <h1> SignUp Page</h1>
-          <form>
-              <h1>Username</h1>
-              <input 
-               placeholder="Username"
-               value={username}
-               onChange={(e)=> setUsername(e.target.value)}
+             {/* <h1> SignUp Page</h1> */}
+          <Container>
+          <Card className="card">
+           <CardMedia
+           image={logo}
+                style={{ height: "5rem", backgroundSize: "contain" }}>
+                 
+           </CardMedia>
+           <Typography className="text"><h3>Sign up to see photos and videos of your friends</h3> </Typography>
+           <CardContent>
+             {/* username */}
+           <TextField className="txt__field" size='small'
+              variant="outlined"  label="username" 
+              value={username}
+              onChange={(e)=> setUsername(e.target.value)}
+              //  className = {classes.mb}
                />
-              <h1>Email</h1>
-              <input 
-              type="text"
-               placeholder="Email"
-               value={email}
-               onChange={(e)=> setEmail(e.target.value)}
+               <br></br>
+               <br></br>
+               {/* Email */}
+ 
+               <TextField  className="txt__field" size='small'
+              variant="outlined"  label="Email" 
+              value={email}
+               onChange={(e)=> setEmail(e.target.value)} 
+              //  className = {classes.mb}
                />
-              <h1>Password</h1>
-              <input type="password" placeholder="password" value={password}
-               onChange={(e)=> setPassword(e.target.value)}/> 
-              <br></br>
-              <div>
-                  Profile Image
-                  <input type="file" accept="image/*" 
+               <br></br>
+               <br></br>
+       {/* password */}
+
+       <TextField   className="txt__field" size='small'
+              variant="outlined"  label="Password" 
+              value={password}
+              type="password"
+              onChange={(e)=> setPassword(e.target.value)} 
+              //  className = {classes.mb}
+               />
+           </CardContent>
+          <CardActions>
+         {/* upload button */}
+         <div>    
+           {/* <Button color="secondary" focused={true}  variant="outlined"  
+            style={{left:"60px" ,alignItems:"center"}} */}
+            <InputLabel  
+                   color="secondary" 
+                   variant="outlined"
+                   type="file" accept="eimage/*" 
                onChange={(e)=> {handleFileSubmit (e)}}/> 
+              {/* type="file" accept="eimage/*" 
+             onChange={(e)=> {handleFileSubmit(e)}} startIcon={<CloudUpload/>} */}
+             {/* > */}
+        
+             {/* </Button>      */}
+            
+          </div>
+
+         {/* sign up button */}
+         <Button color="primary" variant="outlined"  
+         style={{left:"10px" ,alignItems:"center"}}
+         onClick={handlesignUP} >SIGNUP</Button> 
+          </CardActions>
+          </Card>
+
+          </Container>
+               
+             
+              
+              <div>
+                  {/* Profile Image
+                  <Button   className="btn" focused={true}  color="secondary"  variant="outlined">
+                  <InputLabel  
+                   color="secondary" 
+                   variant="outlined"
+                   type="file" accept="eimage/*" 
+               onChange={(e)=> {handleFileSubmit (e)}}/> 
+                  </Button> */}
+                  
               </div>
-              <h1></h1>
-              <Button color="primary" variant="outlined"  onClick={handlesignUP} >SIGNUP</Button>
+               
               
               
-          </form>
+              
+          
         </div>
     )
 }

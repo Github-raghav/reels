@@ -1,0 +1,37 @@
+*{
+
+    /* background-color: lightgray; */
+
+}
+.signup{
+    /* disply: flex; */
+    
+    /* flex-direction: column; */
+}
+.card{
+    top: 5rem;
+    display: flex;
+    width: 30rem;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 25rem;
+    position: relative;
+}
+.text{
+    height: 10px;
+    position: absolute;
+    top: 38px;
+    color: #060660bd;;
+    left: 15px;
+}
+.txt__field{
+    width: 75%;
+    left: 50px;
+}
+.btn >InputBase{
+    background-color: none;
+    border: none;
+    color: white;
+
+
+}

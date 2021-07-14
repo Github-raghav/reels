@@ -1,0 +1,17 @@
+.header__logo{
+    height: 10vh;
+    left: 5rem;
+    margin-left: 35rem;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 30px;
+}
+.header__logo>img{
+    height: 100%;
+}
+.insta__logo>img{
+    height: 100%;
+    height: 6vh;
+    margin-top: 10px;
+}
