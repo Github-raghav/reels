@@ -5,8 +5,8 @@ import { Button } from '@material-ui/core';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { firebaseDb, firebaseStorage } from '../config/firebase';
 import { uuid } from 'uuidv4';
-// import { CommentSharp } from '@material-ui/icons';
-// import ChatIcon from '@material-ui/icons/Chat';
+import VideoPost from './VideoPost';
+
 
 const Feed=(props)=> {
   let {signOut}=useContext(AuthContext);
@@ -70,9 +70,47 @@ await firebaseDb.collection("users").doc(uid).set(document
 
    }
  }
+
+ let conditionObject={
+  root:null,
+  threshold:"0.6",
+}
+function cb(entries){
+  entries.forEach(entry =>{
+      let child=entry.target.children[0];
+
+      child.play().then(function () {
+          if(entry.isIntersecting==false){
+              child.pause();
+          }
+      })
+  })
+}
+
+ useEffect(() => {
+  // code which will run when the component loads
+  let observerObject = new IntersectionObserver(cb, conditionObject);
+  let elements = document.querySelectorAll(".video-container");
+
+  elements.forEach((el) => {
+    observerObject.observe(el); //Intersection Observer starts observing each video element
+  });
+}, [posts]);
+
+
+
+  useEffect(()=>{
+  // get all posts of firebase
+  firebaseDb.collection("posts").get().then((snapshot) =>{
+   let allPosts=snapshot.docs.map((doc)=>{
+      return doc.data();
+    });
+    setPosts(allPosts);
+  });
+  },[]);
     return (
         <div className="feed">
-          <h1>  hello from feed</h1>
+          {/* <h1>  hello from feed</h1> */}
           <Button color="primary" variant="outlined"
             onClick={handleLogOut}>LOGOUT</Button>
             <div>
@@ -81,10 +119,13 @@ await firebaseDb.collection("users").doc(uid).set(document
             <Button color="secondary" onClick={handleUploadFile} startIcon={<PhotoCameraIcon/>}>upload</Button>
             </label>
             </div>
-            
-
+            <div className="feeds-video-list">
+               {posts.map(postObj =>{
+                 return <VideoPost key={postObj.pid} postObj={postObj} ></VideoPost>
+               })}
+            </div>
         </div>
-    )
+    );
 }
 
 export default Feed; 
