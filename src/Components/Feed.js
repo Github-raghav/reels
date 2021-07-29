@@ -54,14 +54,14 @@ function fun1(snapshot){
   await firebaseDb.collection("posts").doc(pid).set({
     pid:pid,
     uid:uid,
-    commments:[],
+    comments:[],
     likes:[],
    videoLink:videoUrl,
    });
   //  user data jo update hona chahta h.
  let doc= await firebaseDb.collection("users").doc(uid).get(); // get user uid
  let document= doc.data();
-document.postsCreated.push(pid);// push tht uin postcreated id
+ document.postsCreated.push(pid);// push tht uin postcreated id
 await firebaseDb.collection("users").doc(uid).set(document
   ); // again set updated uid
 
