@@ -3,16 +3,19 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
 import { Button } from '@material-ui/core';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import { firebaseDb, firebaseStorage } from '../config/firebase';
+import { firebaseDb, firebaseStorage, timestamp } from '../config/firebase';
 import { uuid } from 'uuidv4';
 import VideoPost from './VideoPost';
-
+import "./Feed.css"
 
 const Feed=(props)=> {
   let {signOut}=useContext(AuthContext);
   const[videoFile,setVideoFile]=useState(null);
+  
   const{currentUser}=useContext(AuthContext);
   const [posts, setPosts] = useState([]);
+
+
 
   const handleLogOut=async()=>{
    try{
@@ -57,6 +60,7 @@ function fun1(snapshot){
     comments:[],
     likes:[],
    videoLink:videoUrl,
+   createdAt:timestamp(),
    });
   //  user data jo update hona chahta h.
  let doc= await firebaseDb.collection("users").doc(uid).get(); // get user uid
@@ -101,7 +105,10 @@ function cb(entries){
 
   useEffect(()=>{
   // get all posts of firebase
-  firebaseDb.collection("posts").get().then((snapshot) =>{
+  // onsnapshot=listens means kbhi bhi posts ka collection change hota h n
+  // post update hoga tb humesha yeh func chlega.jitne bhi updates hue hongay
+  // uska snapshot lega nd then setposts krega
+  firebaseDb.collection("posts").orderBy("createdAt","desc").get().then((snapshot) =>{
    let allPosts=snapshot.docs.map((doc)=>{
       return doc.data();
     });

@@ -1,0 +1,57 @@
+.comment__section{
+    display: flex;
+    margin-left: 4px;
+    /* margin-right: 4px; */
+}
+.comment__section > .user__pic{
+   margin-right: 4px;
+   margin-top: 6px;
+}
+.comment__section>.MuiTypography-root{
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+}
+.user__details{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-left: 5px;
+    margin-bottom: 6px;
+    margin-top: 9px;
+
+}
+.user__details > .user__name{
+    margin-left: 6px;
+}
+.video_container{
+    height: 11rem;
+    margin-top: 5px;
+    padding: 0px;
+    margin-bottom: 8px;
+}
+.reels__card{
+    position: relative;
+    left: 400px;
+    margin: 4px;
+    margin-bottom: 10px;
+    position:relative;
+}
+.addComment{
+    height: 29px;
+    margin-right: 7px;
+    margin-left: 7px;
+    width: 72%;
+    border-radius: 7px;
+    outline: none;
+    text-align: start;
+    text-decoration: none;
+    border: 1px solid gray;    
+    padding: 11px;
+}
+.delete__icon{
+    display: flex;
+    align-items: flex-end;
+}

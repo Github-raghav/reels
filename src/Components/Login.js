@@ -93,7 +93,7 @@ import { Link } from 'react-router-dom';
 
                <CardActions>
                <Button color="primary" variant="contained" 
-              onClick={handleLogin}
+              onClick={handleLogin} 
               className = {classes.fullWidth}>LOGIN</Button>
               
                </CardActions>

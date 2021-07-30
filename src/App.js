@@ -1,6 +1,6 @@
 import React,{useContext,useEffect} from 'react';
 import { BrowserRouter as Router,Route, Switch } from 'react-router-dom';
-// import './App.css';
+import './App.css';
 import Header from './Components/Header';
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
@@ -9,10 +9,20 @@ import Profile from "./Components/Profile";
 import Feed from './Components/Feed';
 import { AuthContext, AuthProvider } from './context/AuthProvider';
 import { Redirect } from 'react-router';
+import { firebaseAuth } from './config/firebase';
 
 
 
 function App() {
+//   let { currentUser } = useContext(AuthContext);
+// useEffect(()=>{
+//    firebaseAuth.onAuthStateChanged(user=>{
+//      if(currentUser){
+//       AuthContext()
+//      }
+//    })
+// },[])
+
   return (
     <AuthProvider> 
     <Router> 
