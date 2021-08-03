@@ -5,4 +5,12 @@
 }
 .App{
   /* background-color: #f3f2ef; */
+  background-color: #f3f2ef;
+}
+.app__body{
+  display: flex;
+  margin-top: 35px;
+  margin-left: 20px;
+  max-width: 1200px;
+  margin-right: 20px;
 }

@@ -1,5 +1,5 @@
-import React,{useContext,useEffect} from 'react';
-import { BrowserRouter as Router,Route, Switch } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Header';
 import Login from "./Components/Login";
@@ -10,46 +10,76 @@ import Feed from './Components/Feed';
 import { AuthContext, AuthProvider } from './context/AuthProvider';
 import { Redirect } from 'react-router';
 import { firebaseAuth } from './config/firebase';
+import SideBar from './Components/SideBar';
+import signOut from "./context/AuthProvider"
+import Widgets from './Widgets';
+
 
 
 
 function App() {
-//   let { currentUser } = useContext(AuthContext);
-// useEffect(()=>{
-//    firebaseAuth.onAuthStateChanged(user=>{
-//      if(currentUser){
-//       AuthContext()
-//      }
-//    })
-// },[])
+
+  const { currentUser } = useContext(AuthContext);
+  // console.log(currentUser);
+  // useEffect(()=>{
+  //    firebaseAuth.onAuthStateChanged(currentUser=>{
+  //      if(currentUser){
+  //       //  console.log(currentUser.password);
+  //       AuthProvider(Login({
+  //    email:currentUser.email,
+  //    uid:currentUser.uid,
+
+
+  //       }))
+  //      }else{
+  //        AuthProvider(signOut())
+  //      }
+  //    })
+  // },[])
 
   return (
-    <AuthProvider> 
-    <Router> 
-    <div className="App">
-      <Header></Header>
-      {/* switch sees ki only component is loaded at a time */}
-      <Switch> 
-        <Route path="/login" component={Login} exact></Route>
-        <Route path="/Signup" component={Signup} exact></Route>
-        <PrivateRoute path="/feed" comp={Feed} exact> </PrivateRoute>
-        <PrivateRoute path="/profile" comp={Profile} ></PrivateRoute>
-        
-      </Switch>
-    </div>
-    </Router>
-    </AuthProvider>
+    <>
+
+<Router>
+ <div className="App">
+ {currentUser ? <Header/> :
+          <></>}
+        <div className="app__body">
+            {currentUser ? <SideBar/> 
+             :
+          <></>}
+
+     
+        <Switch>
+          <Route path="/login" component={Login} exact></Route>
+          <Route path="/Signup" component={Signup} exact></Route>
+          <PrivateRoute path="/" comp={Feed} exact></PrivateRoute>
+          <PrivateRoute path="/profile" comp={Profile} exact ></PrivateRoute>
+        </Switch>
+          
+         {currentUser ? <Widgets/> 
+             :
+          <></>}
+         </div>
+
+</div>
+      </Router>
+
+
+
+    </>
   );
 }
 
-function PrivateRoute(props){ // privateroute m comp m feed milta jisme kuch comp hte h inspect m dekho(compnents)
-    // comp:componen this is a alias(comp ka naam compnent k dia)
-  let {comp : Component,path}=props;
+function PrivateRoute(props) { // privateroute m comp m feed milta jisme kuch comp hte h inspect m dekho(compnents)
+  // comp:componen this is a alias(comp ka naam compnent k dia)
+  let { comp: Component, path } = props;
   // feed ?? jb login ho or path m / ho.
- let {currentUser}= useContext(AuthContext );
-//  let {currentUser}=true;
-  return currentUser ?(<Route path={path} component={Component}></Route>
-  ):(
+  let { currentUser } = useContext(AuthContext);
+  console.log(currentUser)
+  //  let {currentUser}=true;
+  return currentUser ? (<Route path={path} component={Component}></Route>
+  ) : (
     <Redirect to="/login"></Redirect>
   );
 }

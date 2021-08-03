@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthProvider';
-import { Button } from '@material-ui/core';
+import { Button,ButtonBase } from '@material-ui/core';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { firebaseDb, firebaseStorage, timestamp } from '../config/firebase';
 import { uuid } from 'uuidv4';
 import VideoPost from './VideoPost';
+import Header from './Header';
 import "./Feed.css"
+import SideBar from './SideBar';
 
 const Feed=(props)=> {
   let {signOut}=useContext(AuthContext);
@@ -16,7 +18,7 @@ const Feed=(props)=> {
   const [posts, setPosts] = useState([]);
 
 
-
+  
   const handleLogOut=async()=>{
    try{
 
@@ -93,6 +95,7 @@ function cb(entries){
 
  useEffect(() => {
   // code which will run when the component loads
+  
   let observerObject = new IntersectionObserver(cb, conditionObject);
   let elements = document.querySelectorAll(".video-container");
 
@@ -108,23 +111,46 @@ function cb(entries){
   // onsnapshot=listens means kbhi bhi posts ka collection change hota h n
   // post update hoga tb humesha yeh func chlega.jitne bhi updates hue hongay
   // uska snapshot lega nd then setposts krega
-  firebaseDb.collection("posts").orderBy("createdAt","desc").get().then((snapshot) =>{
-   let allPosts=snapshot.docs.map((doc)=>{
+  // let unsub=firebaseDb.collection("posts").orderBy("createdAt","desc").onSnapshot((doc)=>{
+  //    let arr=[];
+  //    doc.forEach((x)=>{
+  //     arr.push( x.data());
+  //    }) 
+  //   console.log(arr);
+  //   setPosts(arr);
+  // })
+  // .then((snapshot) =>{
+  //  let allPosts=snapshot.docs.map((doc)=>{
+  //     return doc.data();
+  //   });
+  // });
+  // return unsub;
+  // },[]);
+  firebaseDb
+  .collection("posts")
+  .orderBy("createdAt", "desc")
+  .onSnapshot((snapshot) => {
+    let allPosts = snapshot.docs.map((doc) => {
       return doc.data();
     });
     setPosts(allPosts);
   });
-  },[]);
+}, []);
+
     return (
         <div className="feed">
-          {/* <h1>  hello from feed</h1> */}
-          <Button color="primary" variant="outlined"
-            onClick={handleLogOut}>LOGOUT</Button>
+           
+          
+          {/* <Button color="primary" variant="outlined"
+            onClick={handleLogOut}>LOGOUT</Button> */}
             <div>
-              <input type="file" onChange={handleInputFile}/>
-            <label>
+             
+              {/* <input type="file"  onChange={handleInputFile}/> */}
+            
+              {/* <Input className="input__file" type="file" variant="outlined" placeholder="file" size="small" onChange={handleInputFile}/> */}
+            {/* <label>
             <Button color="secondary" onClick={handleUploadFile} startIcon={<PhotoCameraIcon/>}>upload</Button>
-            </label>
+            </label> */}
             </div>
             <div className="feeds-video-list">
                {posts.map(postObj =>{

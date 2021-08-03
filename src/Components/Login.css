@@ -1,4 +1,19 @@
 .card{
-    width: 25rem;
-    /* display: flex; */
+    padding: 8px;
+    width: 23rem;
+    margin: 13px 0px;
+    display: grid;
+    place-content: center;
+}
+.login{
+    margin-top: 33px;
+    position: relative;
+   
+    display: contents;
+}
+#paper{
+    width: 35px;
+}
+.class__name{
+    
 }

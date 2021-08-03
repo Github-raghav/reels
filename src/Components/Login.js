@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext, useEffect} from 'react'
 import Card from '@material-ui/core/Card';
 import { Button, Container,TextField, Paper,Typography,CardContent,CardActions,makeStyles, Grid, CardMedia} from '@material-ui/core';
 import { AuthContext } from '../context/AuthProvider';
@@ -6,20 +6,31 @@ import "./Login.css"
 // import { Smartphone } from '@material-ui/icons';
 // import logo from"../Components/logo.png";
 import logo from "../logo.png";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Header from './Header';
+
+
 
  const Login=(props)=> {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const[message,setMessage]=useState("");
-    let {login}= useContext(AuthContext);
+    let {login,currentUser}= useContext(AuthContext);
+    const history =useHistory();
 
+    useEffect(() => {
+      console.log(currentUser)
+      if(currentUser){
+history.push("/")
+      }
+     
+    }, [currentUser])
    const handleLogin= async(e)=>{
        // email,password.
        try{
            await login(email,password);
            console.log(props);
-           props.history.push("/feed");
+            history.push("/");
     }catch(err){
        setEmail("");
        setPassword("");
@@ -59,11 +70,13 @@ import { Link } from 'react-router-dom';
       let classes = useStyles();
 
     return (
+      
         <div className="login">
+         
             <Container>
                 <Grid className="grid" container spacing={2} style={{justifyContent:"space-evenly"} } >
                 <Grid item sm={5}>
-                    <Paper className={classes.carousal}>couresel</Paper>
+                    <Paper className={classes.carousal} id="paper">couresel</Paper>
                 </Grid>
                  
                  <Grid item sm={3}>
@@ -74,7 +87,7 @@ import { Link } from 'react-router-dom';
                 image={logo}
                 style={{ height: "5rem", backgroundSize: "contain" }}
               > </CardMedia>
-               <CardContent>
+               <CardContent className="class__name">
             {/* Email input */}
               <TextField  size='small'
               variant="outlined"  label="Email" 
