@@ -1,0 +1,94 @@
+.Profile{
+    position: relative;
+    left: 20rem;
+    height: 78vh;
+}
+
+.username{
+    text-align: center;
+}
+.username > .userPic{
+    height: 133px;
+    width: 119px;
+    
+}
+.username >h3{
+
+}
+.user__details > .posts{
+    margin-left: 52px;
+    align-items: center
+}
+
+.user__details > .posts >h1{
+    letter-spacing: 1.5px;
+    text-shadow: 5px;
+    text-shadow: 2px 2px lightsteelblue;
+    text-transform: capitalize;
+}
+.user__details > .posts >h2{
+    position: relative;
+    /* left: 18px; */
+    text-align: center;
+    color: hotpink;
+}
+.edit__profile{
+    position: relative;
+    left: 11rem;
+}
+.edit__profile>h1{
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    color: black;
+}
+
+
+#inputName{
+   
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    height: 2px;
+    width: 15rem;
+    border-radius: 18px;
+    color: gray;
+    background-color: #eef3f8;
+   
+}
+.user__name{
+    display: flex;
+    align-items: center;
+    outline: none;
+    width: 100%;
+    border: none;
+    background: none;
+}
+.user__username{
+    display: flex;
+    align-items: center;
+}
+.user__name>h1{
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+.user__username >h1 {
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+#inputUsername{
+    position: relative;
+    top: 6px;
+    height: 21px;
+    margin-left: 12px;
+    border: 2px solid lightgray;
+    border-radius: 6px;
+    padding: 5px;
+    font-weight: 500;
+}
+.user__Bio{
+    display: flex;
+}
+.user__Bio>h1{
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}

@@ -33,11 +33,11 @@
     margin-bottom: 8px;
 }
 .reels__card{
-    position: relative;
-    left: 400px;
-    margin: 4px;
-    margin-bottom: 10px;
-    position:relative;
+    /* position: relative; */
+    /* left: 400px; */
+    /* margin: 4px; */
+    margin-bottom: 13px;
+    
 }
 .addComment{
     height: 29px;

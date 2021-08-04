@@ -111,31 +111,31 @@ function cb(entries){
   // onsnapshot=listens means kbhi bhi posts ka collection change hota h n
   // post update hoga tb humesha yeh func chlega.jitne bhi updates hue hongay
   // uska snapshot lega nd then setposts krega
-  // let unsub=firebaseDb.collection("posts").orderBy("createdAt","desc").onSnapshot((doc)=>{
-  //    let arr=[];
-  //    doc.forEach((x)=>{
-  //     arr.push( x.data());
-  //    }) 
-  //   console.log(arr);
-  //   setPosts(arr);
-  // })
+  let unsub=firebaseDb.collection("posts").orderBy("createdAt","desc").onSnapshot((doc)=>{
+     let arr=[];
+     doc.forEach((x)=>{
+      arr.push( x.data());
+     }) 
+    console.log(arr);
+    setPosts(arr);
+  })
   // .then((snapshot) =>{
   //  let allPosts=snapshot.docs.map((doc)=>{
   //     return doc.data();
   //   });
   // });
-  // return unsub;
-  // },[]);
-  firebaseDb
-  .collection("posts")
-  .orderBy("createdAt", "desc")
-  .onSnapshot((snapshot) => {
-    let allPosts = snapshot.docs.map((doc) => {
-      return doc.data();
-    });
-    setPosts(allPosts);
-  });
-}, []);
+  return unsub;
+  },[]);
+//   firebaseDb
+//   .collection("posts")
+//   .orderBy("createdAt", "desc")
+//   .onSnapshot((snapshot) => {
+//     let allPosts = snapshot.docs.map((doc) => {
+//       return doc.data();
+//     });
+//     setPosts(allPosts);
+//   });
+// }, []);
 
     return (
         <div className="feed">

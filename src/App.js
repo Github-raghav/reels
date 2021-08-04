@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Header';
@@ -12,7 +12,7 @@ import { Redirect } from 'react-router';
 import { firebaseAuth } from './config/firebase';
 import SideBar from './Components/SideBar';
 import signOut from "./context/AuthProvider"
-import Widgets from './Widgets';
+import Widgets from './Components/Widgets';
 
 
 
@@ -20,44 +20,34 @@ import Widgets from './Widgets';
 function App() {
 
   const { currentUser } = useContext(AuthContext);
-  // console.log(currentUser);
-  // useEffect(()=>{
-  //    firebaseAuth.onAuthStateChanged(currentUser=>{
-  //      if(currentUser){
-  //       //  console.log(currentUser.password);
-  //       AuthProvider(Login({
-  //    email:currentUser.email,
-  //    uid:currentUser.uid,
-
-
-  //       }))
-  //      }else{
-  //        AuthProvider(signOut())
-  //      }
-  //    })
-  // },[])
-
+  const[showSideBar,setShowSideBar]=useState(true);
+  // const[showRightBar,setShowRightBar]=useState(true);
+  
+  const handleSideBar=()=>{
+    // if(currentUser && Profile){
+    //   setShowSideBar(false);
+    // }
+  }
   return (
     <>
 
 <Router>
  <div className="App">
- {currentUser ? <Header/> :
+ {currentUser  ? <Header/> :
           <></>}
         <div className="app__body">
-            {currentUser ? <SideBar/> 
+            {currentUser && showSideBar   ? <SideBar/> 
              :
           <></>}
-
-     
+           
         <Switch>
           <Route path="/login" component={Login} exact></Route>
           <Route path="/Signup" component={Signup} exact></Route>
           <PrivateRoute path="/" comp={Feed} exact></PrivateRoute>
-          <PrivateRoute path="/profile" comp={Profile} exact ></PrivateRoute>
+          <PrivateRoute path="/profile" comp={Profile} setShowSideBar={setShowSideBar}  exact ></PrivateRoute>
         </Switch>
           
-         {currentUser ? <Widgets/> 
+         {currentUser && showSideBar ? <Widgets/> 
              :
           <></>}
          </div>
@@ -73,12 +63,13 @@ function App() {
 
 function PrivateRoute(props) { // privateroute m comp m feed milta jisme kuch comp hte h inspect m dekho(compnents)
   // comp:componen this is a alias(comp ka naam compnent k dia)
-  let { comp: Component, path } = props;
+  let { comp: Component, path,setShowSideBar } = props;
   // feed ?? jb login ho or path m / ho.
   let { currentUser } = useContext(AuthContext);
   console.log(currentUser)
   //  let {currentUser}=true;
-  return currentUser ? (<Route path={path} component={Component}></Route>
+  return currentUser ? (<Route path={path}  render={props=>{return <Component {...props} setShowSideBar={setShowSideBar}
+ /> }}></Route>
   ) : (
     <Redirect to="/login"></Redirect>
   );

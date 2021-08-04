@@ -19,8 +19,8 @@ function Header() {
     const{currentUser}=useContext(AuthContext);
 
     const  handleMore = ()=> (
-        <More/>,
-        setShowMore(!showMore)
+      setShowMore(!showMore),
+        <More/>
 
     )
    
@@ -101,7 +101,7 @@ function Header() {
               <label htmlFor="inputFile">
               <Button variant="outlined" component='span' color="secondary" startIcon={<AddIcon/>} >
                    create new Post</Button>
-                {/* hii */}
+                
               </label>
 
               <label>
