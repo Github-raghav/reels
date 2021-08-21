@@ -5,6 +5,7 @@ import { Button,ButtonBase } from '@material-ui/core';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { firebaseDb, firebaseStorage, timestamp } from '../config/firebase';
 import { uuid } from 'uuidv4';
+// const { v4: uuidv4 } = require('uuid');
 import VideoPost from './VideoPost';
 import Header from './Header';
 import "./Feed.css"
@@ -106,26 +107,22 @@ function cb(entries){
 
 
 
-  useEffect(()=>{
+  // useEffect(()=>{
   // get all posts of firebase
   // onsnapshot=listens means kbhi bhi posts ka collection change hota h n
   // post update hoga tb humesha yeh func chlega.jitne bhi updates hue hongay
   // uska snapshot lega nd then setposts krega
-  let unsub=firebaseDb.collection("posts").orderBy("createdAt","desc").onSnapshot((doc)=>{
-     let arr=[];
-     doc.forEach((x)=>{
-      arr.push( x.data());
-     }) 
-    console.log(arr);
-    setPosts(arr);
-  })
-  // .then((snapshot) =>{
-  //  let allPosts=snapshot.docs.map((doc)=>{
-  //     return doc.data();
-  //   });
-  // });
-  return unsub;
-  },[]);
+  // let unsub=firebaseDb.collection("posts").orderBy("createdAt","desc").onSnapshot((doc)=>{
+  //    let arr=[];
+  //    doc.forEach((x)=>{
+  //     arr.push( x.data());
+  //    }) 
+  //   console.log(arr);
+  //   setPosts(arr);
+  // })
+  // return unsub;
+  // },[]);
+  
 //   firebaseDb
 //   .collection("posts")
 //   .orderBy("createdAt", "desc")
@@ -136,7 +133,20 @@ function cb(entries){
 //     setPosts(allPosts);
 //   });
 // }, []);
+useEffect(() => {
+  //GET ALL THE POSTS
 
+  //onSnapshot => listens for changes on the collection
+  firebaseDb
+    .collection("posts")
+    .orderBy("createdAt", "desc")
+    .onSnapshot((snapshot) => {
+      let allPosts = snapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      setPosts(allPosts);
+    });
+}, []); //component did mount !
     return (
         <div className="feed">
            

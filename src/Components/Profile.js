@@ -7,6 +7,7 @@ import { firebaseAuth, firebaseDb } from '../config/firebase';
 
 
 function Profile(props) {
+    
     const history=useHistory();
     const{currentUser}=useContext(AuthContext);
     const {uid}=firebaseAuth.currentUser;
@@ -41,13 +42,14 @@ useEffect(() => {
     }
     },[])
 
-
+console.log(currentUser);
+console.log(user);
     return (
         <div className="Profile">
             {/* <h3>u just hit the profile</h3> */}
             <div className="user__details">
                <div className="username">
-            <Avatar className="userPic" src={user?.profileImageUrl}></Avatar>
+            <Avatar className="userPic" src={user?user.profileImageUrl:user.email.substring(0,1)}></Avatar>
                 <h3>{user?.username}</h3>
                    </div> 
             <div className="posts">
@@ -56,7 +58,7 @@ useEffect(() => {
             </div>
             <div className="posts">
                 <h1>Followers</h1>
-                <h2>25</h2>
+                <h2>20</h2>
             </div>
             <div className="posts">
                 <h1>Following</h1>

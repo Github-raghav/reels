@@ -34,7 +34,7 @@ function SideBar() {
     return (
         <div className="sidebar">
             <div className="sidebar__top">
-                <Avatar src={user?.profileImageUrl} className="user" >
+                <Avatar className="user" src={user?.profileImageUrl}  >
                 {currentUser?.email.substring(0,1)}</Avatar>  
                 
                 
@@ -55,7 +55,7 @@ function SideBar() {
                      <p>Followers</p>
                      </div>
                       <div className="post" >    
-                     <h4>20</h4>
+                     <h4>25</h4>
                      <p>Following</p>
                      </div>
                  </div>

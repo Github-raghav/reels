@@ -76,7 +76,9 @@ history.push("/")
             <Container>
                 <Grid className="grid" container spacing={2} style={{justifyContent:"space-evenly"} } >
                 <Grid item sm={5}>
-                    <Paper className={classes.carousal} id="paper">couresel</Paper>
+                    <div id="paper">
+                      <img className="insta__img" src="/instagram.png"/>
+                      </div>
                 </Grid>
                  
                  <Grid item sm={3}>

@@ -12,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const VideoPost = (props) => {
+  // console.log(props);
   let [user,setUser]=useState(null);
   let[comment,setComment]=useState("");
   let [commentList, setCommentList] = useState([]);
@@ -26,17 +27,19 @@ const VideoPost = (props) => {
     },
   });
   let classes = useStyles();
+  console.log(currentUser.uid);
+  console.log(user);
     const addCommentToCommentList=async(e)=>{
       let profilePic;
-      console.log(profilePic);
+      // console.log(profilePic);
       if(currentUser.uid==user.userId){
-        console.log(currentUser);
         profilePic=user.profileImageUrl;
         // console.log(user.profileImageUrl);
       }else{
         let doc=await firebaseDb.collection("users").doc(currentUser.uid).get();
         let user=doc.data();
-        profilePic=user.profileImageUrl;
+        console.log(user.profileImageUrl);
+          profilePic=user.profileImageUrl;  
       }
       let newCommentList=[...commentList,{
         profilePic:profilePic,
@@ -96,7 +99,7 @@ const VideoPost = (props) => {
           profilePic: commentUserPic,
           comment: commentObj.comment,
         });
-        console.log(commentObj);
+        // console.log(commentObj);
       }
       if(likes.includes(currentUser.uid)){
         setIsLiked(true);
@@ -111,15 +114,16 @@ const VideoPost = (props) => {
       
     
   },[])
-  console.log(isLiked);
+  // console.log(isLiked);
 
     return ( 
       <Container> 
         <Card className="reels__card" style={{height:"500px",width:"300px"}} >
        
        <div className="user__details">
-        <Avatar src={user? user.profileImageUrl:""} />
-        <Typography className="user__name" variant="span">{user? user.username:""}</Typography>
+        <Avatar src={user? user.profileImageUrl:user?.email.substring(0,1)} />
+        <Typography className="user__name" >{user?user.username:""}</Typography>
+
        </div>
 
         <div className="video_container">
@@ -135,27 +139,35 @@ const VideoPost = (props) => {
             <Typography variant="p">Liked by {likescount} others</Typography>
           </div>        
           ) }
+
+          <div className="comments">
+
    <input className="addComment" placeholder="Add a comment" size="small" 
     value={comment}
     onChange={(e) => {
       setComment(e.target.value);
     }}
    ></input>
-   <Button variant="outlined" size="small"
+   <button variant="outlined"
+   className="PostButton"
+   size="small"
+   disabled={!comment}
     onClick={addCommentToCommentList}
     >
-      Post</Button>
+      Post</button>
+          </div>
      
    {commentList.map((commentObj)=>{
      return (
       <>
+      
       <div className="comment__section">
-      <Avatar src={commentObj.profilePic} className="user__pic"></Avatar>
+        {console.log(currentUser)};
+        {console.log(commentObj.profilePic)}
+      <Avatar src={commentObj?commentObj.profilePic:currentUser.email.substring(0,1)} className="user__pic"></Avatar>
       <Typography className="comment" variant="p">{commentObj.comment}</Typography>
-      {/* <IconButton>
-      <DeleteIcon className="delete__icon"/>
-      </IconButton> */}
       </div>
+      
       </>
      );
 

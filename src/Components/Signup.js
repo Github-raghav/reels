@@ -56,7 +56,7 @@ let profileImageUrl=await uploadPhotoObject.snapshot.ref.getDownloadURL();
  postsCreated:[],
  })}
 
- props.history.push("/feed");
+ props.history.push("/");
         }catch(err){
             setMessage(err.message);
             alert(err.message);
