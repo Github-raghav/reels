@@ -49,7 +49,7 @@ console.log(user);
             {/* <h3>u just hit the profile</h3> */}
             <div className="user__details">
                <div className="username">
-            <Avatar className="userPic" src={user?user.profileImageUrl:user.email.substring(0,1)}></Avatar>
+            <Avatar className="userPic" src={user?.profileImageUrl}></Avatar>
                 <h3>{user?.username}</h3>
                    </div> 
             <div className="posts">
